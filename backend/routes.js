@@ -47,6 +47,12 @@ routes.post('/api/games', (req, res) => {
     return
   }
 
+  if (games.has(id)) {
+    res.status(409)
+    res.send('Game already exists')
+    return
+  }
+
   games.set(id, new Game(code))
   res.status(201)
   res.send()
