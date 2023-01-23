@@ -5,6 +5,7 @@ const colors = ['red', 'green', 'blue', 'yellow', 'purple', 'orange']
 class Game {
   #code
   // An other solution is instead using private fields, we can overwrite the toJSON method and chose what to return.
+  // but it will hide the code only for JSON.stringify.
 
   // Constructs a new game with the given code and guesses.
   // If no code is given, a random code is generated.

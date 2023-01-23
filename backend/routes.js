@@ -89,10 +89,6 @@ routes.post('/api/games/:id/guess', (req, res) => {
   res.json(game)
 })
 
-// TODO:
-//  Ajoutez une route pour supprimer une partie.
-//  DELETE /api/games/:id - delete a game
-//  STATUS: 204 No Content
 routes.delete('/api/games/:id', (req, res) => {
   const { id } = req.params
   games.delete(id)
