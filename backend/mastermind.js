@@ -7,13 +7,13 @@ const colors = ["red", "green", "blue", "yellow", "purple", "orange"];
 // A game object holds the state of a Mastermind game.
 // The code is a private list of four colors hidden from the player.
 class Game {
-    code;
+    #code;
 
     // Constructs a new game with the given code and guesses.
     // If no code is given, a random code is generated.
     // If no guesses are given, an empty list of guesses is used.
     constructor(code, guesses) {
-        this.code = code || Game.generateCode();
+        this.#code = code || Game.generateCode();
         this.guesses = guesses || [];
         this.status = "playing";
     }
@@ -24,7 +24,10 @@ class Game {
         //  Pour l'entrée de l'utilisateur (guess), calculez:
         //  - le nombre de couleurs correctes et à la bonne place (black pins);
         //  - le nombre de couleurs correctes mais à la mauvaise place (white pins).
-        const feedback = new Feedback(guess, 1, 2);
+
+        const correctColors = this.#code.filter((color, index) => color === guess[index]);
+        const correctColorsWrongPlace = this.#code.filter((color, index) => color !== guess[index] && guess.includes(color));
+        const feedback = new Feedback(guess, correctColors.length, correctColorsWrongPlace.length);
 
         this.guesses.push(feedback);
 

@@ -39,6 +39,10 @@ games.set('test', new Game(
 // GET /api/games - list all the ongoing games
 // STATUS: 200 OK
 // JSON: ['partie1', 'partie2', 'partie3']
+routes.get('/api/games', (req, res) => {
+    res.status(200);
+    res.json(Array.from(games.keys()));
+});
 
 // POST /api/games - create a new game
 routes.post('/api/games', (req, res) => {
@@ -70,5 +74,11 @@ routes.post('/api/games/:id/guess', (req, res) => {
 //  Ajoutez une route pour supprimer une partie.
 //  DELETE /api/games/:id - delete a game
 //  STATUS: 204 No Content
+routes.delete('/api/games/:id', (req, res) => {
+    const {id} = req.params;
+    games.delete(id);
+    res.status(204);
+    res.send();
+});
 
 module.exports = routes;

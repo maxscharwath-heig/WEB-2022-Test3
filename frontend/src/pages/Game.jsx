@@ -14,7 +14,7 @@ const Game = () => {
             const data = await response.json();
             setGame(data);
         };
-        fetchGame();
+        void fetchGame();
     }, [id]);
 
     const handleGuess = async (guess) => {

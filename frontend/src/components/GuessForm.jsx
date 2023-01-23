@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import PegInput from './PegInput'
 
 const colors = ["red", "green", "blue", "yellow", "purple", "orange"];
 
@@ -16,34 +17,21 @@ const GuessForm = ({onSubmit}) => {
         onSubmit(guess);
     };
 
-    const handleChange = (event, index) => {
+    const handleChange = (color, index) => {
         setError(null);
-        const {value} = event.target;
-        guess[index] = value
+        guess[index] = color;
         setGuess([...guess])
     };
 
     return (
         <form onSubmit={handleSubmit} style={{borderTop: 'solid 2px black', paddingTop: '1rem'}}>
             {error && <div style={{color: 'red', padding: '8px'}}>{error}</div>}
-            {[...Array(4)].map((_, i) => <PegInput key={i} i={i} value={guess[i] || ''} onChange={handleChange}/>)}
+            <div style={{display: 'flex', gap: '1rem', flexDirection: 'column'}}>
+                {colors.map((color, i) => <PegInput key={i} color={color} guess={guess} onChange={handleChange}/>)}
+            </div>
             <button type="submit" style={{marginTop: '1rem'}}>Guess</button>
         </form>
     );
-};
-
-const PegInput = ({i, value, onChange}) => {
-    return (<div>
-        <label>
-            Position {i + 1} :
-            <select value={value} onChange={(ev) => onChange(ev, i)}>
-                <option value="" disabled>Select color</option>
-                {colors.map((color) => (
-                    <option key={color} value={color}>{color}</option>
-                ))}
-            </select>
-        </label>
-    </div>);
 };
 
 export default GuessForm;
