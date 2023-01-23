@@ -16,6 +16,10 @@ const { Game, Feedback } = require('./mastermind.js')
 // Create a map to store the ongoing games
 const games = new Map()
 
+function isValidID(id) {
+  return /^[a-zA-Z0-9-]+$/.test(id)
+}
+
 // Add a game named "test" for testing purposes
 games.set('test', new Game(
   ['red', 'green', 'blue', 'yellow'],
@@ -41,9 +45,9 @@ routes.get('/api/games', (req, res) => {
 // POST /api/games - create a new game
 routes.post('/api/games', (req, res) => {
   const { id, code } = req.body
-  if (!id) {
+  if (!id || !isValidID(id)) {
     res.status(400)
-    res.send('Missing id')
+    res.send('Missing id or invalid id')
     return
   }
 
