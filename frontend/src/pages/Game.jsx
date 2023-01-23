@@ -38,8 +38,7 @@ const Game = () => {
       },
       body: JSON.stringify({ guess })
     })
-    const data = await response.json()
-    return data
+    return await response.json()
   }
 
   if (error) {
@@ -62,6 +61,7 @@ const Game = () => {
     >
       <Link to="/">Back to home</Link>
       <h1>Mastermind</h1>
+      <h2>Game: {id}</h2>
       <Board game={game}/>
       {game.status === 'won' && <h2>You win!</h2>}
       {game.status === 'lost' && <h2>You lose!</h2>}
